@@ -1,25 +1,28 @@
+// Load environment variables
+require('dotenv').config();
 
+// Connect to the database
 const connectDB = require('./config/db');
-require('dotenv').config(); // Load environment variables
-connectDB(); // Connect to the database
-
+connectDB();
 
 // Import the express package
 const express = require('express');
-
-// Create an express app
 const app = express();
-
-// Define the port number to listen on
-const PORT = process.env.PORT || 3000;
 
 // Middleware: Parse incoming JSON requests
 app.use(express.json());
+
+// Import and use auth routes
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
 
 // Test route: root URL
 app.get('/', (req, res) => {
   res.send('Welcome to Airbean Admin API!');
 });
+
+// Define the port number to listen on
+const PORT = process.env.PORT || 3000;
 
 // Start the server
 app.listen(PORT, () => {
