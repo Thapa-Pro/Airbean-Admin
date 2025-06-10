@@ -16,6 +16,9 @@ app.use(express.json());
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
+const menuRoutes = require('./routes/menuRoutes');
+app.use('/api/menu', menuRoutes);
+
 // Test route: root URL
 app.get('/', (req, res) => {
   res.send('Welcome to Airbean Admin API!');
