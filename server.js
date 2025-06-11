@@ -12,9 +12,11 @@ const app = express();
 // Middleware: Parse incoming JSON requests
 app.use(express.json());
 
-// Import and use auth routes
+// Import and use auth and menu routes
 const authRoutes = require('./routes/authRoutes');
+const menuRoutes = require('./routes/menuRoutes');
 app.use('/api/auth', authRoutes);
+app.use('/api/menu', menuRoutes);
 
 const menuRoutes = require('./routes/menuRoutes');
 app.use('/api/menu', menuRoutes);
@@ -25,7 +27,11 @@ app.get('/', (req, res) => {
 });
 
 // Define the port number to listen on
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; 
+
+const { swaggerSpec, swaggerUi } = require('./swagger');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 
 // Start the server
 app.listen(PORT, () => {
