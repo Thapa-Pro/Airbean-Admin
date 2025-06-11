@@ -7,7 +7,8 @@ Vid sidan av de tre obligatoriska admin-skyddade endpoints (för att **lägga ti
 Just keep it as it is for now.
 
 ✅ Visa alla registrerade användare  
-✅ Ta bort en användare med ID
+✅ Ta bort en användare med ID 
+**(Men en admin kan inte radera en annan admin.)**
 
 Dessa funktioner var inte ett krav i uppgiften, men jag ville utforska dem som en del av mitt eget lärande och framtida referens. De är fullt implementerade med token-skydd och rollbaserad åtkomstkontroll.
 
@@ -19,6 +20,13 @@ Dessa funktioner var inte ett krav i uppgiften, men jag ville utforska dem som e
   "username": "admin",
   "password": "admin123"
 }
+----
+**Eller**
+{
+  "username": "JesperN",
+  "password": "JesperN123"
+}
 -----------------
 Inloggningssvaret ger en JWT-token.
 Vi använder den token som Bearer Token i Insomnia (Auth-fliken) för att få åtkomst.
+https://github.com/users/Thapa-Pro/projects/2/views/1
