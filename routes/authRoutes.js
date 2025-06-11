@@ -52,9 +52,9 @@ router.post('/register', authController.register);
  *         application/json:
  *           schema:
  *             type: object
- *             required: [email, password]
+ *             required: [username, password]
  *             properties:
- *               email:
+ *               username:
  *                 type: string
  *               password:
  *                 type: string

@@ -92,16 +92,25 @@ exports.getAllUsers = async (req, res) => {
 // BONUS FEATURE – NOT IN EXAM
 // ==========================
 exports.deleteUser = async (req, res) => {
-  try {
-    const { id } = req.params;
+  const { id } = req.params;
 
-    const deletedUser = await User.findByIdAndDelete(id);
-    if (!deletedUser) {
+  try {
+    const user = await User.findById(id);
+
+    if (!user) {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    res.status(200).json({ message: 'User deleted successfully.' });
+    // Protect key accounts
+    if (user.username === "JesperN" || user.username === "admin") {
+      return res.status(403).json({ message: "Protected account. Cannot be deleted." }); 
+      //(403) is a Forbidden response and thus Skips the delete step
+    }
+
+    await user.deleteOne();
+    res.status(200).json({ message: 'User deleted.' });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to delete user.' });
+    res.status(500).json({ message: 'Server error.' });
   }
 };
+
