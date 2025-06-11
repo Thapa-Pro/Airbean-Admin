@@ -7,38 +7,7 @@ const menuController = require('../controllers/menuController');
 // I use this middleware to protect admin-only routes
 const adminMiddleware = require('../middleware/adminMiddleware');
 
-/**
- * @swagger
- * /api/menu:
- *   post:
- *     summary: Add new product to menu
- *     tags: [Menu]
- *     security:
- *       - bearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required: [title, desc, price]
- *             properties:
- *               title:
- *                 type: string
- *               desc:
- *                 type: string
- *               price:
- *                 type: number
- *     responses:
- *       201:
- *         description: Product added
- *       400:
- *         description: Missing required fields
- *       401:
- *         description: Unauthorized (missing or invalid token)
- *       403:
- *         description: Admin only
- */
+
 router.post('/', adminMiddleware, menuController.addProduct);
 
 /**
