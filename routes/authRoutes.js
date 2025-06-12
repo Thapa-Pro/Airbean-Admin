@@ -114,8 +114,14 @@ router.get('/users', adminMiddleware, authController.getAllUsers);
  *         description: User not found
  *       401:
  *         description: Unauthorized
+ *    
+#          Originally I used 403 for "Admin only", but reused for protected admin accounts
+#          because Swagger only allows one 403 entry per route.
+#          This shows the check I added to block deletion of admin or JesperN accounts.
+
  *       403:
- *         description: Admin only
+ *         description: Forbidden – cannot delete protected admin account
+ * 
  *       500:
  *         description: Server error
  */
