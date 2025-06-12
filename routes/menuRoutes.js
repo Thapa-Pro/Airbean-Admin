@@ -1,12 +1,12 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express'); // Import Express to create routes
+const router = express.Router(); // Create a new router
 
-// I import the controller where all the logic is
-const menuController = require('../controllers/menuController');
+const menuController = require('../controllers/menuController'); // Import controller logic for menu actions
+const adminMiddleware = require('../middleware/adminMiddleware'); // Import middleware to protect admin-only routes
 
-// I use this middleware to protect admin-only routes
-const adminMiddleware = require('../middleware/adminMiddleware');
-
+// ==========================
+// ADD A NEW PRODUCT (admin only)
+// ==========================
 /**
  * @swagger
  * /api/menu:
@@ -43,6 +43,9 @@ const adminMiddleware = require('../middleware/adminMiddleware');
  */
 router.post('/', adminMiddleware, menuController.addProduct);
 
+// ==========================
+// GET ALL PRODUCTS (public)
+// ==========================
 /**
  * @swagger
  * /api/menu:
@@ -63,6 +66,9 @@ router.post('/', adminMiddleware, menuController.addProduct);
  */
 router.get('/', menuController.getAllProducts);
 
+// ==========================
+// UPDATE A PRODUCT BY prodId (admin only)
+// ==========================
 /**
  * @swagger
  * /api/menu/{id}:
@@ -98,7 +104,7 @@ router.get('/', menuController.getAllProducts);
  *       400:
  *         description: Missing required fields
  *       401:
- *         description: Unauthorized (token missing/invalid)
+ *         description: Unauthorized
  *       403:
  *         description: Admin only
  *       404:
@@ -106,6 +112,9 @@ router.get('/', menuController.getAllProducts);
  */
 router.put('/:id', adminMiddleware, menuController.updateProduct);
 
+// ==========================
+// DELETE A PRODUCT BY prodId (admin only)
+// ==========================
 /**
  * @swagger
  * /api/menu/{id}:
@@ -133,4 +142,4 @@ router.put('/:id', adminMiddleware, menuController.updateProduct);
  */
 router.delete('/:id', adminMiddleware, menuController.deleteProduct);
 
-module.exports = router;
+module.exports = router; // Export the router so it can be used in server.js
