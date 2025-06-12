@@ -8,7 +8,7 @@ Det här är mitt individuella examensprojekt för **Airbean Admin API**, med fo
 
 - **Node.js**
 - **Express**
-- **MongoDB**
+- **MongoDB** (med **Compass** för databasinspektion)
 - **JWT** (token-baserad autentisering)
 
 Utöver de tre obligatoriska admin-skyddade endpoints (för att **lägga till**, **uppdatera** och **ta bort** produkter), valde jag att lägga till två extra funktioner för att utforska hur en riktig admin-panel skulle kunna fungera:
