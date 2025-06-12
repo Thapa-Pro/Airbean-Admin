@@ -1,12 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const authController = require('../controllers/authController');
-const adminMiddleware = require('../middleware/adminMiddleware');
+const express = require('express'); // Import Express to create router
+const router = express.Router(); // Create a new router
 
-// ==============================
-//  PUBLIC ROUTES
-// ==============================
+const authController = require('../controllers/authController'); // Import controller with register/login logic
+const adminMiddleware = require('../middleware/adminMiddleware'); // Import middleware to protect admin-only routes
 
+// ==========================
+// REGISTER NEW USER (public)
+// ==========================
 /**
  * @swagger
  * /api/auth/register:
@@ -19,11 +19,9 @@ const adminMiddleware = require('../middleware/adminMiddleware');
  *         application/json:
  *           schema:
  *             type: object
- *             required: [username, email, password]
+ *             required: [username, password]
  *             properties:
  *               username:
- *                 type: string
- *               email:
  *                 type: string
  *               password:
  *                 type: string
@@ -34,12 +32,17 @@ const adminMiddleware = require('../middleware/adminMiddleware');
  *       201:
  *         description: User registered successfully
  *       400:
- *         description: Missing fields or duplicate email
+ *         description: Missing fields
+ *       409:
+ *         description: Username already taken
  *       500:
  *         description: Server error
  */
 router.post('/register', authController.register);
 
+// ==========================
+// LOGIN USER AND RETURN TOKEN (public)
+// ==========================
 /**
  * @swagger
  * /api/auth/login:
@@ -68,10 +71,9 @@ router.post('/register', authController.register);
  */
 router.post('/login', authController.login);
 
-// ==============================
-//  ADMIN-ONLY ROUTES
-// ==============================
-
+// ==========================
+// GET ALL USERS (admin only)
+// ==========================
 /**
  * @swagger
  * /api/auth/users:
@@ -92,6 +94,9 @@ router.post('/login', authController.login);
  */
 router.get('/users', adminMiddleware, authController.getAllUsers);
 
+// ==========================
+// DELETE USER BY ID (admin only)
+// ==========================
 /**
  * @swagger
  * /api/auth/users/{id}:
@@ -114,11 +119,10 @@ router.get('/users', adminMiddleware, authController.getAllUsers);
  *         description: User not found
  *       401:
  *         description: Unauthorized
- *    
-#          Originally I used 403 for "Admin only", but reused for protected admin accounts
-#          because Swagger only allows one 403 entry per route.
-#          This shows the check I added to block deletion of admin or JesperN accounts.
-
+ * 
+ *                # Originally I used 403 for "Admin only", but reused for protected admin accounts
+ *                # because Swagger only allows one 403 entry per route.
+ *                # This shows the extra check I added to block deletion of "admin" or "JesperN" accounts.
  *       403:
  *         description: Forbidden – cannot delete protected admin account
  * 
@@ -127,4 +131,4 @@ router.get('/users', adminMiddleware, authController.getAllUsers);
  */
 router.delete('/users/:id', adminMiddleware, authController.deleteUser);
 
-module.exports = router;
+module.exports = router; // Export router to use in server.js
