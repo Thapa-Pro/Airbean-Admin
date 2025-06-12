@@ -1,6 +1,6 @@
 # ☕ Airbean Admin API
 ### 📌 Projektplanering / User Stories  
-[📋 Klicka här för att se mitt arbetsflöde i GitHub Project Board](https://github.com/users/Thapa-Pro/projects/2/views/1)
+[📋 Mitt arbetsflöde i GitHub Project Board](https://github.com/users/Thapa-Pro/projects/2/views/1)
 
 ### 📌 Sammanfattning
 
